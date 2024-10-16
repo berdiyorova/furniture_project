@@ -21,7 +21,7 @@ msgstr ""
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 #: .\common\models.py:6
 msgid "Created_at"
-msgstr ""
+msgstr "Создано"
 
 #: .\common\models.py:7
 msgid "Updated_at"
@@ -29,43 +29,43 @@ msgstr ""
 
 #: .\common\models.py:14
 msgid "Name"
-msgstr ""
+msgstr "Обновлено"
 
 #: .\common\models.py:15
 msgid "Email"
-msgstr ""
+msgstr "Электронная почта"
 
 #: .\common\models.py:16
 msgid "Subject"
-msgstr ""
+msgstr "Тема сообщения"
 
 #: .\common\models.py:17
 msgid "Message"
-msgstr ""
+msgstr "Содержание сообщения"
 
 #: .\common\models.py:20
 msgid "Contact"
-msgstr ""
+msgstr "Контакт"
 
 #: .\common\models.py:21
 msgid "Contacts"
-msgstr ""
+msgstr "Контакты"
 
 #: .\templates\layouts\header_base.html:110
 msgid "Home"
-msgstr ""
+msgstr "Домашняя страница"
 
 #: .\templates\layouts\header_base.html:113
 #: .\templates\layouts\header_home.html:99
 msgid "Blog"
-msgstr ""
+msgstr "Блог"
 
 #: .\templates\layouts\header_base.html:116
 #: .\templates\layouts\header_home.html:102
 msgid "Page"
-msgstr ""
+msgstr "Страница"
 
 #: .\templates\layouts\header_base.html:119
 #: .\templates\layouts\header_home.html:105
 msgid "Contact US"
-msgstr ""
+msgstr "Связаться с нами"
