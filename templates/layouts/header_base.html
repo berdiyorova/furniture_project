@@ -1,5 +1,12 @@
 {% load static %}
 {% load i18n %}
+{% load my_tags %}
+
+{% url 'pages:home' as home_url %}
+{% url 'pages:about_us' as about_us_url %}
+{% url 'pages:contact' as contact_url %}
+{% url 'products:list' as page_url %}
+{% url 'blogs:list' as blog_url %}
 
 <header>
 
@@ -106,17 +113,20 @@
                     <div class="col-sm-5 col-md-5 align-items-center justify-content-center navbar-expand-md main-menu">
                         <div class="menu navbar collapse navbar-collapse">
                             <ul class="menu-top navbar-nav">
-                                <li>
-                                    <a href="{% url 'pages:home' %}" class="parent">{% trans 'Home'%}</a>
+                                <li {% if request.path == home_url %}class="nav-link"{% endif %}>
+                                    <a href="{{ home_url }}" class="parent">{% trans 'Home'%}</a>
                                 </li>
-                                <li>
-                                    <a href="{% url 'blogs:list' %}" class="parent">{% trans 'Blog'%}</a>
+                                <li {% if request.path == blog_url %}class="nav-link"{% endif %}>
+                                    <a href="{{ blog_url }}" class="parent">{% trans 'Blog'%}</a>
                                 </li>
-                                <li>
-                                    <a href="{% url 'products:list' %}" class="parent">{% trans 'Page'%}</a>
+                                <li {% if request.path == page_url %}class="nav-link"{% endif %}>
+                                    <a href="{{ page_url }}" class="parent">{% trans 'Page'%}</a>
                                 </li>
-                                <li class="nav-link">
-                                    <a href="{% url 'pages:contact' %}" class="parent">{% trans 'Contact US'%}</a>
+                                <li {% if request.path == about_us_url %}class="nav-link"{% endif %}>
+                                    <a href="{{ about_us_url }}" class="parent">{% trans 'About US'%}</a>
+                                </li>
+                                <li {% if request.path == contact_url %}class="nav-link"{% endif %}>
+                                    <a href="{{ contact_url }}" class="parent">{% trans 'Contact US'%}</a>
                                 </li>
                             </ul>
                         </div>

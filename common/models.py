@@ -19,5 +19,3 @@ class ContactModel(AbstractBaseModel):
     class Meta:
         verbose_name = _('Contact')
         verbose_name_plural = _('Contacts')
-
-
