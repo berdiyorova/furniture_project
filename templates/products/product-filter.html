@@ -1,0 +1,108 @@
+<div class="sidebar-3 sidebar-collection col-lg-3 col-md-4 col-sm-4">
+
+                                        <!-- category menu -->
+                                        <div class="sidebar-block">
+                                            <div class="title-block">Categories</div>
+                                            <div class="block-content">
+                                                {% for parent in parents %}
+                                                    <div class="cateTitle hasSubCategory open level1">
+                                                    <span class="arrow collapsed collapse-icons" data-toggle="collapse" data-target="#{{forloop.counter}}" aria-expanded="false" role="status">
+                                                        <i class="zmdi zmdi-minus"></i>
+                                                        <i class="zmdi zmdi-plus"></i>
+                                                    </span>
+                                                    <a class="cateItem" href="{% url 'products:list' parent.id %}">{{ parent.name }}</a>
+                                                    <div class="subCategory collapse" id="{{forloop.counter}}" aria-expanded="true" role="status">
+                                                        {% for category in categories %}
+                                                            {% if category.parent.name == parent.name %}
+                                                                <div class="cateTitle">
+                                                                <a href="{% url 'products:list' category.id %}" class="cateItem">{{ category.name }}</a>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <!-- best seller -->
+                                        <div class="sidebar-block">
+                                            <div class="title-block">Catalog</div>
+
+                                            <div class="new-item-content">
+                                                <h3 class="title-product">categories</h3>
+                                                <ul class="scroll-product">
+                                                    {% for cat in categories %}
+                                                        <li>
+                                                        <label class="check">
+                                                            <input type="checkbox">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                        <a href="#">
+                                                            <b>{{ cat.name }}</b>
+                                                            <span class="quantity">({{cat.products.count}})</span>
+                                                        </a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+
+                                            <div class="new-item-content">
+                                                <h3 class="title-product">Manufacture</h3>
+                                                <ul class="scroll-product">
+                                                    {% for brand in brands %}
+                                                        <li>
+                                                        <label class="check">
+                                                            <input type="checkbox">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                        <a href="#">
+                                                            <b>{{brand.name}}</b>
+                                                            <span class="quantity">({{brand.products.count}})</span>
+                                                        </a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+
+                                            <div class="sidebar-block by-color">
+                                                <h3 class="title-product">By Color</h3>
+                                                {% for color in colors %}
+                                                    <div>
+                                                        <span class="left">
+                                                            <label style="background: {{color.0.code}}"></label>
+                                                            <a href="#">
+                                                                <span>{{color.0.name}}
+                                                                    <span>({{color.0.products.count}})</span>
+                                                                </span>
+                                                            </a>
+                                                        </span>
+                                                        <span class="right">
+                                                            <label style="background: {{color.1.code}}"></label>
+                                                            <a href="#">
+                                                                <span>{{color.1.name}}
+                                                                    <span>({{color.1.products.count}})</span>
+                                                                </span>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <!-- product tag -->
+                                        <div class="sidebar-block product-tags">
+                                            <div class="title-block">
+                                                Product Tags
+                                            </div>
+                                            <div class="block-content">
+                                                <ul class="listSidebarBlog list-unstyled">
+                                                    {% for tag in tags %}
+                                                        <li>
+                                                        <a href="#" title="Show products matching tag Hot Trend">{{tag.name}}</a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
