@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, ListView, DetailView
+from django.shortcuts import get_object_or_404
+from django.views.generic import ListView, DetailView
 
-from products.models import ProductModel, CategoryModel, BrandModel, ColorModel, SizeModel, TagModel
+from products.models import ProductModel, CategoryModel, BrandModel, ColorModel, SizeModel, TagModel, ProductImageModel
 
 
 class ProductListView(ListView):
@@ -46,24 +46,39 @@ class ProductListView(ListView):
         category = CategoryModel.objects.filter(id=category_id).first()
 
         order = self.request.GET.get('order')
-        products = list()
 
         if category.parent is None:
-            for cat in category.children.all():
-                products += ProductModel.objects.filter(categories=cat)
+            queryset = ProductModel.objects.filter(categories__in=category.children.all()).distinct()
         else:
-            products = ProductModel.objects.filter(categories=category)
+            queryset = ProductModel.objects.filter(categories=category)
 
         if order == 'name_asc':
-            products = products.order_by('name')
+            products = queryset.order_by('name')
         elif order == 'name_desc':
-            products = products.order_by('-name')
+            products = queryset.order_by('-name')
         elif order == 'price_asc':
-            products = products.order_by('real_price')
+            products = queryset.order_by('real_price')
         elif order == 'price_desc':
-            products = products.order_by('-real_price')
+            products = queryset.order_by('-real_price')
         else:
-            products = products.order_by('-created_at')
+            products = queryset.order_by('-created_at')
 
         return products
 
+
+class ProductDetailView(DetailView):
+    template_name = 'products/product-detail.html'
+    model = ProductModel
+    context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['images'] = ProductImageModel.objects.filter(product=ProductModel.objects.get(id=self.kwargs['pk']))
+        return context
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     pk = self.kwargs.get('pk')
+    #     cat_id = self.kwargs.get('cat_id')
+    #
+    #     return queryset.objects.filter()

@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load i18n %}
+{% load my_tags %}
 
 {% block title %}Product List{% endblock %}
 {% block body_id %}product-sidebar-left{% endblock %}
@@ -79,7 +80,7 @@
                                                         <div class="item text-center col-md-4">
                                                         <div class="product-miniature js-product-miniature item-one first-item">
                                                             <div class="thumbnail-container border">
-                                                                <a href="product-detail.html">
+                                                                <a href="{% url 'products:detail' product.id %}">
                                                                     <img class="img-fluid image-cover" src="{{product.image1.url}}" alt="img">
                                                                     <img class="img-fluid image-secondary" src="{{product.image2.url}}" alt="img">
                                                                 </a>
@@ -94,7 +95,7 @@
                                                             <div class="product-description">
                                                                 <div class="product-groups">
                                                                     <div class="product-title">
-                                                                        <a href="product-detail.html">{{product.name}}</a>
+                                                                        <a href="{% url 'products:detail' product.id %}">{{product.name}}</a>
                                                                     </div>
                                                                     <div class="rating">
                                                                         <div class="star-content">
@@ -112,14 +113,15 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-buttons d-flex justify-content-center">
-                                                                    <form action="#" method="post" class="formAddToCart">
+                                                                    <form action="" method="post" class="formAddToCart">
+                                                                        {% csrf_token %}
                                                                         <input type="hidden" name="id_product" value="1">
-                                                                        <a class="add-to-cart" href="#" data-button-action="add-to-cart">
-                                                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                                        <a class="add-to-cart" href="{% url 'orders:add-or-remove' product.pk %}" data-button-action="add-to-cart">
+                                                                            <i {% if request|in_cart:product.pk %}style="color: blue" {% endif %} class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                                         </a>
                                                                     </form>
-                                                                    <a class="addToWishlist" href="#" data-rel="1" onclick="">
-                                                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                    <a class="addToWishlist" href="{% url 'orders:in-wishlist' product.pk %}" data-rel="1" onclick="">
+                                                                        <i {% if request|in_wishlist:product.pk %}style="color: red" {% endif %} class="fa fa-heart" aria-hidden="true"></i>
                                                                     </a>
                                                                     <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
                                                                         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -139,7 +141,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="thumbnail-container border">
-                                                                        <a href="product-detail.html">
+                                                                        <a href="{% url 'products:detail' product.id %}">
                                                                             <img class="img-fluid image-cover" src="{{product.image1.url}}" alt="img">
                                                                             <img class="img-fluid image-secondary" src="{{product.image2.url}}" alt="img">
                                                                         </a>
@@ -149,7 +151,7 @@
                                                                     <div class="product-description">
                                                                         <div class="product-groups">
                                                                             <div class="product-title">
-                                                                                <a href="product-detail.html">{{product.name}}</a>
+                                                                                <a href="{% url 'products:detail' product.id %}">{{product.name}}</a>
                                                                                 <span class="info-stock">
                                                                                     <i class="fa fa-check-square-o" aria-hidden="true"></i>
                                                                                     In Stock
@@ -175,12 +177,12 @@
                                                                         </div>
                                                                         <div class="product-buttons d-flex">
                                                                             <form action="#" method="post" class="formAddToCart">
-                                                                                <a class="add-to-cart" href="#" data-button-action="add-to-cart">
-                                                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>Add to cart
+                                                                                <a class="add-to-cart" href="{% url 'orders:add-or-remove' product.pk %}" data-button-action="add-to-cart">
+                                                                                    <i {% if request|in_cart:product.pk %}style="color: blue" {% endif %} class="fa fa-shopping-cart" aria-hidden="true"></i>Add to cart
                                                                                 </a>
                                                                             </form>
-                                                                            <a class="addToWishlist" href="#" data-rel="1" onclick="">
-                                                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                                            <a class="addToWishlist" href="{% url 'orders:in-wishlist' product.pk %}" data-rel="1" onclick="">
+                                                                                <i {% if request|in_wishlist:product.pk %}style="color: red" {% endif %} class="fa fa-heart" aria-hidden="true"></i>
                                                                             </a>
                                                                             <a href="#" class="quick-view hidden-sm-down" data-link-action="quickview">
                                                                                 <i class="fa fa-eye" aria-hidden="true"></i>
