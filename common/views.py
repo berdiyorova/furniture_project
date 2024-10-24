@@ -10,7 +10,7 @@ from common.models import ContactModel
 class ContactCreateView(CreateView):
     model = ContactModel
     form_class = ContactModelForm
-    template_name = 'contact.html'
+    template_name = 'pages/contact.html'
     success_url = reverse_lazy('common:contact')
 
     def form_valid(self, form):

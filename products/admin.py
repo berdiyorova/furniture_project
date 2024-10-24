@@ -48,4 +48,5 @@ class ProductModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
     search_fields = ('name', 'short_description', 'long_description')
     list_filter = ('created_at', 'brand', 'categories', 'tags', 'colors', 'sizes')
+    readonly_fields = ('real_price',)
     inlines = [ProductImageModelAdmin]

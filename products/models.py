@@ -10,6 +10,7 @@ class CategoryModel(AbstractBaseModel):
     parent = models.ForeignKey('self',
                                on_delete=models.PROTECT,
                                null=True, blank=True,
+                               related_name='children',
                                verbose_name=_("Parent category name"))
 
     def __str__(self):
@@ -92,6 +93,9 @@ class ProductModel(AbstractBaseModel):
     class Meta:
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
+
+    def is_discount(self):
+        return True if self.discount != 0 else False
 
 
 class ProductImageModel(models.Model):
