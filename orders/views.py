@@ -28,13 +28,8 @@ def product_in_wishlist(request, pk):
 
 class UserCartView(ListView):
     template_name = 'ordering/cart.html'
+    context_object_name = 'products'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        products = list()
+    def get_queryset(self):
         cart = self.request.session.get('cart', [])
-        for product_id in cart:
-            products.append(ProductModel.objects.get(id=product_id))
-
-        context['products'] = products
-        return context
+        return ProductModel.objects.filter(id__in=cart)
