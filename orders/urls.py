@@ -7,4 +7,5 @@ app_name = 'orders'
 urlpatterns = [
     path('cart/<int:pk>/', views.add_or_remove, name='add-or-remove'),
     path('wishlist/<int:pk>/', views.product_in_wishlist, name='in-wishlist'),
+    path('cart/', views.UserCartView.as_view(), name='cart'),
 ]
